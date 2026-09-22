@@ -69,14 +69,14 @@ export function FlyerCarousel({
         className={`flex h-full snap-x snap-mandatory overflow-x-auto scroll-smooth ${rounded} [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`}
       >
         {SLIDES.map((slide, i) => (
-          <div key={slide.src} className="relative h-full w-full shrink-0 snap-start bg-choppa-ink">
+          <div key={slide.src} className="relative h-full w-full shrink-0 snap-start">
             <Image
               src={slide.src}
               alt={slide.alt}
               fill
               priority={i === 0}
               sizes="(min-width: 1024px) 42vw, 100vw"
-              className="object-contain"
+              className="object-cover"
             />
           </div>
         ))}

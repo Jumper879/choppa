@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Moon, Sun } from "lucide-react";
-import { ChoppaHero } from "@/components/brand/ChoppaHero";
 import { ChoppaMark } from "@/components/brand/ChoppaMark";
 import { FlyerCarousel } from "@/components/brand/FlyerCarousel";
 import { Spinner } from "@/components/ui/Spinner";
@@ -68,8 +67,15 @@ function DesktopSplash() {
       </button>
 
       <div className="flex flex-1 flex-col items-center justify-center">
-        <ChoppaHero size={190} className="drop-shadow-[0_16px_28px_rgba(0,0,0,0.22)]" />
-        <h1 className="mt-2 font-display text-5xl font-bold uppercase tracking-tight sm:text-6xl">
+        <video
+          src="/brand/Mascot_walking_animation.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-[280px] rounded-3xl shadow-2xl sm:w-[360px]"
+        />
+        <h1 className="mt-5 font-display text-5xl font-bold uppercase tracking-tight sm:text-6xl">
           Choppa
         </h1>
         <p className="mt-3 max-w-xs text-base font-medium text-choppa-cream/90">
