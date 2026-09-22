@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fbf7ef;
+  --foreground: #201c14;
+
+  /* Choppa brand */
+  --color-choppa-red: #e8531a;
+  --color-choppa-red-dark: #c43f10;
+  --color-choppa-red-light: #ff7a45;
+  --color-choppa-green: #16301f;
+  --color-choppa-green-light: #234a30;
+  --color-choppa-green-mid: #2f6b4f;
+  --color-choppa-cream: #fbf7ef;
+  --color-choppa-peach: #ffdece;
+  --color-choppa-peach-light: #fff1e6;
+  --color-choppa-gold: #d98a1d;
+  --color-choppa-purple: #6e4fa3;
+  --color-choppa-ink: #201c14;
+  --color-choppa-ink-soft: #6b6255;
+
+  --font-display: var(--font-fredoka);
+  --font-sans: var(--font-inter);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-choppa-red: var(--color-choppa-red);
+  --color-choppa-red-dark: var(--color-choppa-red-dark);
+  --color-choppa-red-light: var(--color-choppa-red-light);
+  --color-choppa-green: var(--color-choppa-green);
+  --color-choppa-green-light: var(--color-choppa-green-light);
+  --color-choppa-green-mid: var(--color-choppa-green-mid);
+  --color-choppa-cream: var(--color-choppa-cream);
+  --color-choppa-peach: var(--color-choppa-peach);
+  --color-choppa-peach-light: var(--color-choppa-peach-light);
+  --color-choppa-gold: var(--color-choppa-gold);
+  --color-choppa-purple: var(--color-choppa-purple);
+  --color-choppa-ink: var(--color-choppa-ink);
+  --color-choppa-ink-soft: var(--color-choppa-ink-soft);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+
+  --shadow-card: 0 1px 2px rgba(32, 28, 20, 0.04), 0 8px 24px -12px rgba(32, 28, 20, 0.12);
+  --shadow-pop: 0 12px 32px -8px rgba(232, 83, 26, 0.35);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--color-choppa-peach);
+  color: var(--color-choppa-ink);
+}
+
+* {
+  scrollbar-color: #d8cfbe transparent;
+}
+
+@keyframes choppa-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes choppa-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes choppa-run {
+  0% { transform: translateX(-6px) rotate(-2deg); }
+  50% { transform: translateX(6px) rotate(2deg); }
+  100% { transform: translateX(-6px) rotate(-2deg); }
+}
+
+@keyframes choppa-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes choppa-progress {
+  from { width: 6%; }
+  to { width: 100%; }
+}
+
+.animate-choppa-spin { animation: choppa-spin 1.4s linear infinite; }
+.animate-choppa-bob { animation: choppa-bob 1.6s ease-in-out infinite; }
+.animate-choppa-run { animation: choppa-run 1.1s ease-in-out infinite; }
+.animate-choppa-fade-up { animation: choppa-fade-up 0.6s ease both; }
