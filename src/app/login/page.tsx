@@ -169,7 +169,7 @@ export default function LoginPage() {
         </p>
       </section>
 
-      <section className="flex w-full flex-1 flex-col items-center justify-center bg-choppa-cream px-6 py-12">
+      <section className="flex w-full min-w-0 flex-1 flex-col items-center justify-center bg-choppa-cream px-6 py-12">
         <div className="w-full max-w-sm">
           <div className="mb-8 flex items-center gap-3 lg:hidden">
             <ChoppaMark size={34} className="text-choppa-red" />

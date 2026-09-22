@@ -48,10 +48,24 @@
   --shadow-pop: 0 12px 32px -8px rgba(232, 83, 26, 0.35);
 }
 
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Grid/flex children default to a min-width that matches their content,
+   which lets wide content (tables, numbers, long labels) push the whole
+   page into horizontal overflow. Opt every track item back into shrinking. */
+.grid > *,
+.flex > * {
+  min-width: 0;
 }
 
 ::selection {
@@ -89,7 +103,52 @@ body {
   to { width: 100%; }
 }
 
+@keyframes choppa-limb-a {
+  0%, 100% { transform: rotate(-26deg); }
+  50% { transform: rotate(22deg); }
+}
+
+@keyframes choppa-limb-b {
+  0%, 100% { transform: rotate(22deg); }
+  50% { transform: rotate(-26deg); }
+}
+
 .animate-choppa-spin { animation: choppa-spin 1.4s linear infinite; }
 .animate-choppa-bob { animation: choppa-bob 1.6s ease-in-out infinite; }
 .animate-choppa-run { animation: choppa-run 1.1s ease-in-out infinite; }
 .animate-choppa-fade-up { animation: choppa-fade-up 0.6s ease both; }
+
+.choppa-propeller {
+  transform-box: view-box;
+  transform-origin: 80px 26px;
+  animation: choppa-spin 1.1s linear infinite;
+}
+
+.choppa-limb-a {
+  transform-box: view-box;
+  animation: choppa-limb-a 0.9s ease-in-out infinite;
+}
+
+.choppa-limb-b {
+  transform-box: view-box;
+  animation: choppa-limb-b 0.9s ease-in-out infinite;
+}
+
+.choppa-limb-hip {
+  transform-origin: 80px 118px;
+}
+
+.choppa-limb-shoulder {
+  transform-origin: 80px 84px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-choppa-spin,
+  .animate-choppa-bob,
+  .animate-choppa-run,
+  .choppa-propeller,
+  .choppa-limb-a,
+  .choppa-limb-b {
+    animation: none;
+  }
+}

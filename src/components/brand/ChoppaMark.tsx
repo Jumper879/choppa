@@ -11,10 +11,10 @@ export function ChoppaMark({
 }) {
   return (
     <div
-      className={`relative shrink-0 overflow-hidden rounded-[22%] ${animated ? "animate-choppa-bob" : ""} ${className}`}
+      className={`relative shrink-0 ${animated ? "animate-choppa-bob" : ""} ${className}`}
       style={{ width: size, height: size }}
     >
-      <Image src="/icons/icon-192.png" alt="Choppa" fill sizes={`${size}px`} priority className="object-cover" />
+      <Image src="/icons/icon-192.png" alt="Choppa" fill sizes={`${size}px`} priority className="object-contain" />
     </div>
   );
 }

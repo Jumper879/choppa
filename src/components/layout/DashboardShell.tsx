@@ -175,7 +175,7 @@ export function DashboardShell({
         </div>
       )}
 
-      <div className="flex min-h-screen flex-1 flex-col">
+      <div className="flex min-h-screen min-w-0 flex-1 flex-col">
         <header className="sticky top-0 z-40 flex items-center gap-3 border-b border-black/5 bg-choppa-cream/90 px-4 py-3 backdrop-blur sm:px-6">
           <button
             onClick={() => setMobileOpen(true)}
@@ -185,11 +185,11 @@ export function DashboardShell({
             <Menu size={20} />
           </button>
 
-          <div className="flex-1">
-            <p className="font-display text-lg font-semibold text-choppa-ink">
+          <div className="min-w-0 flex-1">
+            <p className="truncate font-display text-lg font-semibold text-choppa-ink">
               {role === "user" ? `Hey, ${userProfile?.name?.split(" ")[0] ?? "there"} 👋` : restaurant?.name ?? "Your restaurant"}
             </p>
-            <p className="text-xs text-choppa-ink-soft">
+            <p className="truncate text-xs text-choppa-ink-soft">
               {role === "user" ? "What are you craving today?" : "Here's how your restaurant is doing"}
             </p>
           </div>
@@ -254,7 +254,7 @@ export function DashboardShell({
           </div>
         </header>
 
-        <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8">{children}</main>
+        <main className="min-w-0 flex-1 overflow-x-hidden px-4 py-6 sm:px-6 lg:px-8">{children}</main>
       </div>
     </div>
   );

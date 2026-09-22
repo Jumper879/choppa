@@ -1,27 +1,61 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ChoppaMark } from "@/components/brand/ChoppaMark";
+import { Moon, Sun } from "lucide-react";
+import { ChoppaHero } from "@/components/brand/ChoppaHero";
+import { Spinner } from "@/components/ui/Spinner";
+
+type Theme = "day" | "night";
 
 export default function SplashPage() {
   const router = useRouter();
+  const [theme, setTheme] = useState<Theme>("day");
 
   useEffect(() => {
-    const t = setTimeout(() => router.push("/login"), 2200);
+    const t = setTimeout(() => router.push("/login"), 2600);
     return () => clearTimeout(t);
   }, [router]);
 
+  const isNight = theme === "night";
+
   return (
     <main
-      className="flex min-h-screen flex-col items-center justify-center bg-choppa-red px-6 text-center text-choppa-cream"
+      className={`relative flex min-h-screen flex-col items-center justify-center px-6 text-center transition-colors duration-500 ${
+        isNight ? "bg-[#0d1f16] text-choppa-cream" : "bg-choppa-red text-choppa-cream"
+      }`}
       onClick={() => router.push("/login")}
       role="button"
       aria-label="Continue to login"
     >
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          setTheme(isNight ? "day" : "night");
+        }}
+        className="absolute right-5 top-5 flex items-center gap-1.5 rounded-full bg-white/15 p-1 pr-1 backdrop-blur-sm"
+        aria-label="Toggle day and night preview"
+      >
+        <span
+          className={`flex h-7 w-7 items-center justify-center rounded-full transition-colors ${
+            !isNight ? "bg-white text-choppa-red" : "text-white/70"
+          }`}
+        >
+          <Sun size={15} />
+        </span>
+        <span
+          className={`flex h-7 w-7 items-center justify-center rounded-full transition-colors ${
+            isNight ? "bg-white text-[#0d1f16]" : "text-white/70"
+          }`}
+        >
+          <Moon size={15} />
+        </span>
+      </button>
+
       <div className="flex flex-1 flex-col items-center justify-center">
-        <ChoppaMark size={110} animated className="text-choppa-cream drop-shadow-[0_12px_24px_rgba(0,0,0,0.18)]" />
-        <h1 className="mt-4 font-display text-5xl font-bold tracking-tight sm:text-6xl">
+        <ChoppaHero size={190} className="drop-shadow-[0_16px_28px_rgba(0,0,0,0.22)]" />
+        <h1 className="mt-2 font-display text-5xl font-bold uppercase tracking-tight sm:text-6xl">
           Choppa
         </h1>
         <p className="mt-3 max-w-xs text-base font-medium text-choppa-cream/90">
@@ -29,10 +63,8 @@ export default function SplashPage() {
         </p>
       </div>
 
-      <div className="mb-14 flex w-full max-w-[200px] flex-col items-center gap-3">
-        <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/25">
-          <div className="h-full animate-choppa-progress rounded-full bg-white" />
-        </div>
+      <div className="mb-14 flex flex-col items-center gap-3">
+        <Spinner size={30} />
         <p className="text-xs font-medium text-choppa-cream/70">
           Getting your Choppa ready &middot; tap to skip
         </p>
