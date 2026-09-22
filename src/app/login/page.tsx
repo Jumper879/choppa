@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { TextField, SelectField } from "@/components/ui/Field";
 import { Modal } from "@/components/ui/Modal";
 import { ChoppaMark } from "@/components/brand/ChoppaMark";
+import { FlyerCarousel } from "@/components/brand/FlyerCarousel";
 import { Role, Restaurant } from "@/lib/types";
 
 const CUISINES: Restaurant["cuisine"][] = [
@@ -127,46 +128,19 @@ export default function LoginPage() {
 
   return (
     <main className="flex min-h-screen">
-      <section className="relative hidden w-[42%] flex-col justify-between overflow-hidden bg-choppa-green p-10 text-choppa-cream lg:flex">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-choppa-green-light/40"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute bottom-[-4rem] left-[-4rem] h-72 w-72 rounded-full bg-choppa-red/20"
-        />
-        <Link href="/" className="relative flex items-center gap-3">
-          <ChoppaMark size={40} className="text-choppa-cream" />
-          <span className="font-display text-2xl font-bold">Choppa</span>
+      <section className="relative hidden w-[42%] shrink-0 bg-choppa-ink lg:block">
+        <FlyerCarousel className="h-screen" rounded="" autoPlayMs={5000} />
+        <Link
+          href="/"
+          className="absolute left-8 top-8 z-10 flex items-center gap-2.5 rounded-full bg-black/25 py-1.5 pl-1.5 pr-4 backdrop-blur-sm"
+        >
+          <ChoppaMark size={30} />
+          <span className="font-display text-lg font-bold text-white">Choppa</span>
         </Link>
-
-        <div className="relative">
-          <p className="font-display text-4xl font-semibold leading-tight">
-            No need to H,
-            <br />
-            Just Choppa It.
-          </p>
-          <p className="mt-4 max-w-sm text-choppa-cream/80">
-            Hot food, fast delivery. Order from restaurants near you, or open your kitchen
-            to thousands of hungry customers.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3 text-sm">
-            <span className="rounded-full bg-white/10 px-3.5 py-2 font-medium">
-              ⚡ Fast Delivery
-            </span>
-            <span className="rounded-full bg-white/10 px-3.5 py-2 font-medium">
-              🍲 Tasty Food
-            </span>
-            <span className="rounded-full bg-white/10 px-3.5 py-2 font-medium">
-              🤝 Earn &amp; Refer
-            </span>
-          </div>
-        </div>
-
-        <p className="relative text-xs text-choppa-cream/60">
-          &copy; {new Date().getFullYear()} Choppa. Made for chop lovers.
-        </p>
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/40 to-transparent"
+        />
       </section>
 
       <section className="flex w-full min-w-0 flex-1 flex-col items-center justify-center bg-choppa-cream px-6 py-12">

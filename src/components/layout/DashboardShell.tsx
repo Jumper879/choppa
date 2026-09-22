@@ -16,11 +16,12 @@ import {
   Banknote,
   LogOut,
   Bell,
-  Menu,
   X,
   ArrowLeftRight,
   ChevronDown,
+  PanelLeft,
 } from "lucide-react";
+import { MobileTabBar } from "./MobileTabBar";
 import { useStore } from "@/lib/store";
 import { useCart } from "@/lib/cart-context";
 import { ChoppaMark } from "@/components/brand/ChoppaMark";
@@ -47,6 +48,7 @@ export function DashboardShell({
   const { count } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [desktopSidebarOpen, setDesktopSidebarOpen] = useState(true);
 
   const userNav: NavItem[] = [
     { href: "/dashboard", label: "Overview", icon: LayoutGrid },
@@ -68,6 +70,7 @@ export function DashboardShell({
   ];
 
   const nav = role === "user" ? userNav : sellerNav;
+  const primaryNav = nav.slice(0, 4);
   const displayName = role === "user" ? userProfile?.name ?? "Guest" : sellerProfile?.ownerName ?? "Guest";
   const subLabel = role === "user" ? account?.email : restaurant?.name;
   const avatarColor = role === "user" ? userProfile?.avatarColor : "choppa-green-mid";
@@ -155,8 +158,12 @@ export function DashboardShell({
 
   return (
     <div className="flex min-h-screen bg-choppa-cream">
-      <aside className="hidden w-64 shrink-0 border-r border-black/5 bg-white p-5 lg:flex">
-        {SidebarContent}
+      <aside
+        className={`hidden shrink-0 overflow-hidden border-r border-black/5 bg-white transition-[width] duration-200 lg:block ${
+          desktopSidebarOpen ? "w-64" : "w-0 border-r-0"
+        }`}
+      >
+        <div className="h-full w-64 p-5">{SidebarContent}</div>
       </aside>
 
       {mobileOpen && (
@@ -178,11 +185,11 @@ export function DashboardShell({
       <div className="flex min-h-screen min-w-0 flex-1 flex-col">
         <header className="sticky top-0 z-40 flex items-center gap-3 border-b border-black/5 bg-choppa-cream/90 px-4 py-3 backdrop-blur sm:px-6">
           <button
-            onClick={() => setMobileOpen(true)}
-            className="rounded-full p-2 hover:bg-black/5 lg:hidden"
-            aria-label="Open menu"
+            onClick={() => setDesktopSidebarOpen((v) => !v)}
+            className="hidden rounded-full p-2 hover:bg-black/5 lg:flex"
+            aria-label="Toggle sidebar"
           >
-            <Menu size={20} />
+            <PanelLeft size={19} />
           </button>
 
           <div className="min-w-0 flex-1">
@@ -254,8 +261,12 @@ export function DashboardShell({
           </div>
         </header>
 
-        <main className="min-w-0 flex-1 overflow-x-hidden px-4 py-6 sm:px-6 lg:px-8">{children}</main>
+        <main className="min-w-0 flex-1 overflow-x-hidden px-4 pb-24 pt-6 sm:px-6 lg:px-8 lg:pb-6">
+          {children}
+        </main>
       </div>
+
+      <MobileTabBar items={primaryNav} isActive={isActive} onMore={() => setMobileOpen(true)} />
     </div>
   );
 }

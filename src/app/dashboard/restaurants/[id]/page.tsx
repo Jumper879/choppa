@@ -9,7 +9,6 @@ import { useCart } from "@/lib/cart-context";
 import { useToast } from "@/lib/toast-context";
 import { EmojiBadge } from "@/components/ui/Avatar";
 import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
 import { formatNaira } from "@/lib/format";
 
 export default function RestaurantDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -97,46 +96,64 @@ export default function RestaurantDetailPage({ params }: { params: Promise<{ id:
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 xl:grid-cols-4">
         {filteredMenu.map((item) => {
           const line = cart.lines.find((l) => l.menuItemId === item.id);
+          const accentBg: Record<string, string> = {
+            red: "bg-choppa-red/10",
+            green: "bg-choppa-green/10",
+            gold: "bg-choppa-gold/15",
+            purple: "bg-choppa-purple/10",
+          };
           return (
             <div
               key={item.id}
-              className="flex items-center gap-3 rounded-2xl border border-black/[0.04] bg-white p-4 shadow-card"
+              className="overflow-hidden rounded-2xl border border-black/[0.04] bg-white shadow-card"
             >
-              <EmojiBadge emoji={item.emoji} accent={restaurant.accent} size={52} />
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-1.5">
-                  <p className="truncate font-display text-sm font-semibold text-choppa-ink">{item.name}</p>
-                  {item.popular && <Badge tone="gold">Popular</Badge>}
-                </div>
-                <p className="mt-0.5 line-clamp-1 text-xs text-choppa-ink-soft">{item.description}</p>
-                <p className="mt-1 text-sm font-semibold text-choppa-red">{formatNaira(item.price)}</p>
-              </div>
-              {line ? (
-                <div className="flex items-center gap-2 rounded-full bg-choppa-red/10 px-1.5 py-1">
-                  <button
-                    onClick={() => cart.setQty(item.id, line.qty - 1)}
-                    className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-choppa-red shadow-sm"
-                    aria-label="Decrease quantity"
-                  >
-                    <Minus size={13} />
-                  </button>
-                  <span className="w-4 text-center text-sm font-bold text-choppa-red">{line.qty}</span>
+              <div className={`relative flex aspect-square items-center justify-center text-5xl ${accentBg[restaurant.accent]}`}>
+                {item.emoji}
+                {item.popular && (
+                  <span className="absolute left-2 top-2">
+                    <Badge tone="gold">Popular</Badge>
+                  </span>
+                )}
+                {!line && (
                   <button
                     onClick={() => handleAdd(item)}
-                    className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-choppa-red shadow-sm"
-                    aria-label="Increase quantity"
+                    disabled={!item.available}
+                    className="absolute bottom-2 right-2 flex h-9 w-9 items-center justify-center rounded-full bg-choppa-red text-white shadow-pop disabled:opacity-40"
+                    aria-label={`Add ${item.name}`}
                   >
-                    <Plus size={13} />
+                    <Plus size={16} />
                   </button>
+                )}
+              </div>
+              <div className="p-3">
+                <p className="truncate text-sm font-semibold text-choppa-ink">{item.name}</p>
+                <p className="mt-0.5 line-clamp-1 text-xs text-choppa-ink-soft">{item.description}</p>
+                <div className="mt-2 flex items-center justify-between gap-2">
+                  <span className="text-sm font-bold text-choppa-red">{formatNaira(item.price)}</span>
+                  {line && (
+                    <div className="flex items-center gap-1.5 rounded-full bg-choppa-red/10 px-1 py-1">
+                      <button
+                        onClick={() => cart.setQty(item.id, line.qty - 1)}
+                        className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-choppa-red shadow-sm"
+                        aria-label="Decrease quantity"
+                      >
+                        <Minus size={12} />
+                      </button>
+                      <span className="w-3 text-center text-xs font-bold text-choppa-red">{line.qty}</span>
+                      <button
+                        onClick={() => handleAdd(item)}
+                        className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-choppa-red shadow-sm"
+                        aria-label="Increase quantity"
+                      >
+                        <Plus size={12} />
+                      </button>
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <Button size="sm" onClick={() => handleAdd(item)} disabled={!item.available}>
-                  <Plus size={14} /> Add
-                </Button>
-              )}
+              </div>
             </div>
           );
         })}

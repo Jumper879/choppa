@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# raw design sources (optimized copies live in public/)
+/Carousel/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

@@ -2,13 +2,27 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Moon, Sun } from "lucide-react";
+import { ArrowRight, Moon, Sun } from "lucide-react";
 import { ChoppaHero } from "@/components/brand/ChoppaHero";
+import { ChoppaMark } from "@/components/brand/ChoppaMark";
+import { FlyerCarousel } from "@/components/brand/FlyerCarousel";
 import { Spinner } from "@/components/ui/Spinner";
+import { Button } from "@/components/ui/Button";
+import { useIsDesktop } from "@/lib/use-breakpoint";
 
 type Theme = "day" | "night";
 
 export default function SplashPage() {
+  const isDesktop = useIsDesktop();
+
+  if (isDesktop === null) {
+    return <main className="min-h-screen bg-choppa-red" />;
+  }
+
+  return isDesktop ? <DesktopSplash /> : <MobileOnboarding />;
+}
+
+function DesktopSplash() {
   const router = useRouter();
   const [theme, setTheme] = useState<Theme>("day");
 
@@ -68,6 +82,35 @@ export default function SplashPage() {
         <p className="text-xs font-medium text-choppa-cream/70">
           Getting your Choppa ready &middot; tap to skip
         </p>
+      </div>
+    </main>
+  );
+}
+
+function MobileOnboarding() {
+  const router = useRouter();
+
+  return (
+    <main className="flex min-h-screen flex-col bg-choppa-ink">
+      <div className="flex items-center justify-between px-5 pt-5">
+        <div className="flex items-center gap-2">
+          <ChoppaMark size={28} />
+          <span className="font-display text-lg font-bold text-choppa-cream">Choppa</span>
+        </div>
+        <button
+          onClick={() => router.push("/login")}
+          className="text-sm font-semibold text-choppa-cream/70"
+        >
+          Skip
+        </button>
+      </div>
+
+      <FlyerCarousel className="mx-4 mt-4 flex-1" rounded="rounded-[2rem]" />
+
+      <div className="px-6 pb-10 pt-6">
+        <Button size="lg" className="w-full" onClick={() => router.push("/login")}>
+          Get started <ArrowRight size={17} />
+        </Button>
       </div>
     </main>
   );

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { useStore } from "@/lib/store";
 import { RestaurantCard } from "@/components/dashboard/RestaurantCard";
+import { DeliverToBar } from "@/components/dashboard/DeliverToBar";
 import { Cuisine } from "@/lib/types";
 
 const FILTERS: ("All" | Cuisine)[] = [
@@ -20,7 +21,7 @@ const FILTERS: ("All" | Cuisine)[] = [
 type Sort = "nearest" | "rating" | "fastest";
 
 export default function RestaurantsPage() {
-  const { db } = useStore();
+  const { db, userProfile } = useStore();
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("All");
   const [sort, setSort] = useState<Sort>("nearest");
@@ -50,6 +51,8 @@ export default function RestaurantsPage() {
           {results.length} restaurant{results.length === 1 ? "" : "s"} delivering to your address
         </p>
       </div>
+
+      <DeliverToBar address={userProfile?.address} />
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="relative flex-1">
