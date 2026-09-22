@@ -91,7 +91,7 @@ function MobileOnboarding() {
   const router = useRouter();
 
   return (
-    <main className="flex min-h-screen flex-col bg-choppa-ink">
+    <main className="flex min-h-dvh flex-col bg-choppa-ink">
       <div className="flex items-center justify-between px-5 pt-5">
         <div className="flex items-center gap-2">
           <ChoppaMark size={28} />
@@ -105,7 +105,7 @@ function MobileOnboarding() {
         </button>
       </div>
 
-      <FlyerCarousel className="mx-4 mt-4 flex-1" rounded="rounded-[2rem]" />
+      <FlyerCarousel className="mx-4 mt-4 h-[60vh] min-h-[360px]" rounded="rounded-[2rem]" />
 
       <div className="px-6 pb-10 pt-6">
         <Button size="lg" className="w-full" onClick={() => router.push("/login")}>

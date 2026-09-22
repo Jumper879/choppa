@@ -129,7 +129,7 @@ export default function LoginPage() {
   return (
     <main className="flex min-h-screen">
       <section className="relative hidden w-[42%] shrink-0 bg-choppa-ink lg:block">
-        <FlyerCarousel className="h-screen" rounded="" autoPlayMs={5000} />
+        <FlyerCarousel className="h-screen" rounded="" />
         <Link
           href="/"
           className="absolute left-8 top-8 z-10 flex items-center gap-2.5 rounded-full bg-black/25 py-1.5 pl-1.5 pr-4 backdrop-blur-sm"

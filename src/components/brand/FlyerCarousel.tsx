@@ -11,7 +11,7 @@ const SLIDES = Array.from({ length: SLIDE_COUNT }, (_, i) => ({
 
 export function FlyerCarousel({
   className = "",
-  autoPlayMs = 4200,
+  autoPlayMs = 1500,
   rounded = "rounded-3xl",
 }: {
   className?: string;
@@ -56,7 +56,7 @@ export function FlyerCarousel({
     window.clearTimeout(resumeTimeoutRef.current);
     resumeTimeoutRef.current = window.setTimeout(() => {
       pausedRef.current = false;
-    }, 5000);
+    }, 2500);
   }
 
   return (
@@ -69,14 +69,14 @@ export function FlyerCarousel({
         className={`flex h-full snap-x snap-mandatory overflow-x-auto scroll-smooth ${rounded} [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`}
       >
         {SLIDES.map((slide, i) => (
-          <div key={slide.src} className="relative h-full w-full shrink-0 snap-start">
+          <div key={slide.src} className="relative h-full w-full shrink-0 snap-start bg-choppa-ink">
             <Image
               src={slide.src}
               alt={slide.alt}
               fill
               priority={i === 0}
               sizes="(min-width: 1024px) 42vw, 100vw"
-              className="object-cover"
+              className="object-contain"
             />
           </div>
         ))}
